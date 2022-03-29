@@ -11,12 +11,10 @@ def open_file(filename):
     return f
 
 class Puzzle:
-    # Class attribute
-    layout = []
-    n = 0
-
     # Constructor
     def __init__(self, filename):
+        self.layout = []
+        self.n = 0
         f = open_file(filename)
         for line in f:
             arr = line.split()
@@ -92,3 +90,14 @@ class Puzzle:
                 print("%2s" % (num if num != 16 else " "), end=" ")
                 print("|", end="")
             print()
+
+    # g(i) function, calculate total misplaced tiles
+    def calculate_misplaced_tiles(self):
+        total = 0
+        flattened_layout = [num for arr in self.layout for num in arr]
+
+        for i in range(len(flattened_layout)):
+            if (flattened_layout[i] != i+1):
+                total += 1
+
+        return total    
