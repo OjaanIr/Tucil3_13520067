@@ -1,22 +1,29 @@
 import copy
+import os
+
+def open_file(filename):
+    d = os.getcwd()
+    o = [os.path.join(d,o) for o in os.listdir(d) if os.path.isdir(os.path.join(d,o))]
+    for item in o:
+        if os.path.exists(item + '\\' + filename):
+            file = item + '\\' + filename
+    f = open(file, "r")
+    return f
 
 class Puzzle:
-    '''
-    Kelas Puzzle
-    '''
     # Class attribute
     layout = []
     n = 0
 
-    #Constructor
-    def __init__(self, path):
-        f = open(path, "r")
+    # Constructor
+    def __init__(self, filename):
+        f = open_file(filename)
         for line in f:
             arr = line.split()
             self.layout.append(list(map(int, arr)))
 
         self.n = len(self.layout)
-    
+
     # Find empty tile position
     def find_empty(self):
         for i in range(self.n):
@@ -85,25 +92,3 @@ class Puzzle:
                 print("%2s" % (num if num != 16 else " "), end=" ")
                 print("|", end="")
             print()
-
-
-# array = []
-# f = open("test.txt", "r")
-# for line in f:
-#     arr = line.split()
-#     array.append(list(map(int, arr)))
-#     print(array)
-# new = [num for arr in array for num in arr]
-# print(new)
-# print()
-# for row in array:
-#     print("-----------------")
-#     print("|", end="")
-#     for num in row:
-#         print("%2s" % (num if num != 16 else " "), end=" ")
-#         print("|", end="")
-#     print()
-# for i in range(len(array)):
-#             for j in range(len(array)):
-#                 if (array[i][j] == 16):
-#                     print(f"({i}, {j})")
