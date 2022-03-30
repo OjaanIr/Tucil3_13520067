@@ -1,7 +1,7 @@
 class StateSpaceTree:
     # Constructor
-    def __init__(self, start_state):
-        self.root = start_state
+    def __init__(self, node):
+        self.node = node
         self.depth = 0
         self.parent = None
 

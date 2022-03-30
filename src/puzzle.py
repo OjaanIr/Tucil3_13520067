@@ -1,24 +1,28 @@
 import copy
-import os
-
-def open_file(filename):
-    d = os.getcwd()
-    o = [os.path.join(d,o) for o in os.listdir(d) if os.path.isdir(os.path.join(d,o))]
-    for item in o:
-        if os.path.exists(item + '\\' + filename):
-            file = item + '\\' + filename
-    f = open(file, "r")
-    return f
+import random
 
 class Puzzle:
     # Constructor
-    def __init__(self, filename):
+    def __init__(self, filename=""):
         self.layout = []
         self.n = 0
-        f = open_file(filename)
-        for line in f:
-            arr = line.split()
-            self.layout.append(list(map(int, arr)))
+
+        # Input layout puzzle from file
+        if (filename != ""):
+            f = open(filename, "r")
+            for line in f:
+                arr = line.split()
+                self.layout.append(list(map(int, arr)))
+        # Random generated puzzle layout
+        else:
+            array_of_num = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
+            for i in range(4):
+                arr = []
+                for j in range(4):
+                    temp = random.choice(array_of_num)
+                    array_of_num.remove(temp)
+                    arr.append(temp)
+                self.layout.append(arr)
 
         self.n = len(self.layout)
 
@@ -100,4 +104,4 @@ class Puzzle:
             if (flattened_layout[i] != i+1):
                 total += 1
 
-        return total    
+        return total   
