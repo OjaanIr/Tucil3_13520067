@@ -40,38 +40,37 @@ class Puzzle:
     def move(self, direction):
         (r, c) = self.find_empty()
         moved_tile_puzzle = copy.deepcopy(self)
-
         # Move empty tile upward
         if (direction == "up"):
             if (r-1 >= 0):
-                moved_tile_puzzle[r][c], moved_tile_puzzle[r-1][c] = moved_tile_puzzle[r-1][c], moved_tile_puzzle[r][c]
+                moved_tile_puzzle.layout[r][c], moved_tile_puzzle.layout[r-1][c] = moved_tile_puzzle.layout[r-1][c], moved_tile_puzzle.layout[r][c]
                 return moved_tile_puzzle
             else:
                 return None
         # Move empty tile downward
         elif (direction == "down"):
-            if (r+1 <= self.n):
-                moved_tile_puzzle[r][c], moved_tile_puzzle[r+1][c] = moved_tile_puzzle[r+1][c], moved_tile_puzzle[r][c]
+            if (r+1 < self.n):
+                moved_tile_puzzle.layout[r][c], moved_tile_puzzle.layout[r+1][c] = moved_tile_puzzle.layout[r+1][c], moved_tile_puzzle.layout[r][c]
                 return moved_tile_puzzle
             else:
                 return None
         # Move empty tile leftward
         elif (direction == "left"):
             if (c-1 >= 0):
-                moved_tile_puzzle[r][c], moved_tile_puzzle[r][c-1] = moved_tile_puzzle[r][c-1], moved_tile_puzzle[r][c]
+                moved_tile_puzzle.layout[r][c], moved_tile_puzzle.layout[r][c-1] = moved_tile_puzzle.layout[r][c-1], moved_tile_puzzle.layout[r][c]
                 return moved_tile_puzzle
             else:
                 return None
         # Move empty tile rightward
         elif (direction == "right"):
-            if (c+1 <= self.n):
-                moved_tile_puzzle[r][c], moved_tile_puzzle[r][c+1] = moved_tile_puzzle[r][c+1], moved_tile_puzzle[r][c]
+            if (c+1 < self.n):
+                moved_tile_puzzle.layout[r][c], moved_tile_puzzle.layout[r][c+1] = moved_tile_puzzle.layout[r][c+1], moved_tile_puzzle.layout[r][c]
                 return moved_tile_puzzle
             else:
                 return None
         else:
             return None
-
+    
     # Check whether puzzle is solvable or not
     def is_solvable(self):
         (r, c) = self.find_empty()
@@ -97,8 +96,9 @@ class Puzzle:
                 print("%2s" % (num if num != 16 else " "), end=" ")
                 print("|", end="")
             print()
+        print("-----------------")
 
-    # g(i) function, calculate total misplaced tiles
+    # Calculate total misplaced tiles
     def calculate_misplaced_tiles(self):
         total = 0
         flattened_layout = [num for arr in self.layout for num in arr]
@@ -108,3 +108,13 @@ class Puzzle:
                 total += 1
 
         return total   
+
+    # Check if the puzzle is solved
+    def is_solved(self):
+        flattened_layout = [num for arr in self.layout for num in arr]
+
+        for i in range(len(flattened_layout)):
+            if (flattened_layout[i] != i+1):
+                return False
+        
+        return True
