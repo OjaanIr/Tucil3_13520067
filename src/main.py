@@ -55,7 +55,7 @@ final_state.show_solution()
 
 # Time elapsed
 time_elapsed = stop - start
-print("Time elapsed = " + str(time_elapsed) + " s or " + str(time_elapsed * 10**3) + " ms")
+print(f"Time elapsed = {time_elapsed} s or {time_elapsed * 10**3} ms")
 
 # Total generated node
 print("Total generated node =", StateSpaceTree.node_generated)

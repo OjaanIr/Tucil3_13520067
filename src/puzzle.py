@@ -78,14 +78,22 @@ class Puzzle:
         flattened_layout = [num for arr in self.layout for num in arr]
 
         x = (r+c) % 2
+        print(f"X = {x}")
 
         sum = 0
         for i in range(len(flattened_layout)):
+            inversion = 0
             for j in range(i+1, len(flattened_layout)):
                 if (flattened_layout[i] > flattened_layout[j]):
-                    sum += 1
+                    inversion += 1
+            sum += inversion
+            print(f"Inversion ({i}) = {inversion}")
+
+        is_even = (sum + x) % 2 == 0
+        print(f"Total inversions = {sum}")
+        print(f"Total inversions + X = {sum + x} %s" % ("(even)" if (is_even) else "(odd)"))
         
-        return (sum + x) % 2 == 0
+        return is_even
 
     # Print puzzle layout
     def print_puzzle(self):

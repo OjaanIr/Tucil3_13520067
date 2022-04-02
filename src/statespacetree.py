@@ -7,7 +7,8 @@ class StateSpaceTree:
         self.depth = 0
         self.parent = None
         self.move_direction = ""
-        self.__class__.node_generated += 1
+        if (node != None):
+            self.__class__.node_generated += 1
 
     # Add depth of state space tree
     def add_depth(self, parent):
